@@ -9,7 +9,7 @@ NOSTDINC_FLAGS := -I$(src)/include/ \
 KBUILD_CFLAGS += -Wno-address
 
 ifneq ($(SSTAR_MAKEFILE_SUB),y)
-export
+# export
 
 ifeq ($(CONFIG_SSTAR_MODULE_NAME),)
 CONFIG_SSTAR_MODULE_NAME = Sstar_wifi
@@ -27,7 +27,7 @@ ifeq ($(CONFIG_SSTAR_FW_NAME),)
 CONFIG_SSTAR_FW_NAME="fw.bin"
 endif
 
-export
+# export
 SDIO_HOST      ?= $(shell echo $(CONFIG_SSTAR_SDIO_MMCx))
 IF1NAME        ?= $(shell echo $(CONFIG_SSTAR_WIFIIF1_NAME))
 IF2NAME        ?= $(shell echo $(CONFIG_SSTAR_WIFIIF2_NAME))
