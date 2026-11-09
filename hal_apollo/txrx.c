@@ -2340,7 +2340,7 @@ void Sstar_rx_cb(struct Sstar_vif *priv,
 				goto drop;
 			}
 		} else {
-			Sstar_printk_err("[RX] Receive failure: %d.ENCRYPTION [%d],fc(%x)\n",
+			Sstar_printk_rx("[RX] Receive failure: %d.ENCRYPTION [%d],fc(%x)\n",
 				arg->status,WSM_RX_STATUS_ENCRYPTION(arg->flags),mgmt->frame_control);
 			if(priv->join_status != SSTAR_APOLLO_JOIN_STATUS_AP){
 				hdr->flag |= RX_FLAG_UNKOWN_STA_FRAME;

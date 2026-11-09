@@ -1212,7 +1212,7 @@ static void Sstar_usb_xmit_data_complete(struct urb *urb)
 	return ;
 
 __free:
-	Sstar_printk_err("<Warning> usb drop 1 frame txend:_urb_put %d\n",tx_urb->urb_id);
+	Sstar_printk_tx("<Warning> usb drop 1 frame txend:_urb_put %d\n",tx_urb->urb_id);
 //	spin_lock_bh(&hw_priv->tx_com_lock);
 //	spin_lock_irqsave(&hw_priv->tx_com_lock, flags);
 	wsm_release_tx_buffer_NoLock(hw_priv, 1);

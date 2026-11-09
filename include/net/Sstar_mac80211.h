@@ -5087,38 +5087,39 @@ extern u32 Sstar_printk_mask;
 #define SSTAR_PRINTK_MASK_CFG80211		BIT(19)
 #define SSTAR_PRINTK_MASK_DEBUG			BIT(20)
 
-#define SSTAR_PRINTK_DEFAULT_MASK	(SSTAR_PRINTK_MASK_ERR|SSTAR_PRINTK_MASK_WARN|SSTAR_PRINTK_MASK_INIT| \
-									SSTAR_PRINTK_MASK_EXIT|SSTAR_PRINTK_MASK_SCAN|SSTAR_PRINTK_MASK_LMAC|SSTAR_PRINTK_MASK_PM)
+#define SSTAR_PRINTK_DEFAULT_MASK	(SSTAR_PRINTK_MASK_ERR)
 #define SSTAR_PRINTK_ALL ((u32)(-1))
 #define SSTAR_PRINTK_CLEAR		(0)
 #define SSTAR_TAG "[Sstar_log]:"
-#define Sstar_printk(_level,fmt,arg...) 	do {if(Sstar_printk_mask&(_level)) printk(KERN_ERR SSTAR_TAG fmt,##arg);}while(0)
+#define Sstar_printk_level(_pri, _level, fmt, arg...) \
+	do { if (Sstar_printk_mask & (_level)) printk(_pri SSTAR_TAG fmt, ##arg); } while (0)
+#define Sstar_printk(_level,fmt,arg...) 	Sstar_printk_level(KERN_DEBUG, _level, fmt, ##arg)
 
 
 /*
 *Sstar printk
 */
-#define Sstar_printk_err(...) 		Sstar_printk(SSTAR_PRINTK_MASK_ERR,__VA_ARGS__)
-#define Sstar_printk_warn(...)		Sstar_printk(SSTAR_PRINTK_MASK_WARN,__VA_ARGS__)
-#define Sstar_printk_init(...)		Sstar_printk(SSTAR_PRINTK_MASK_DEBUG,__VA_ARGS__)
-#define Sstar_printk_exit(...)		Sstar_printk(SSTAR_PRINTK_MASK_EXIT,__VA_ARGS__)
-#define Sstar_printk_bus(...)		Sstar_printk(SSTAR_PRINTK_MASK_BUS,__VA_ARGS__)
-#define Sstar_printk_scan(...)		Sstar_printk(SSTAR_PRINTK_MASK_DEBUG,__VA_ARGS__)
-#define Sstar_printk_p2p(...)		Sstar_printk(SSTAR_PRINTK_MASK_P2P,__VA_ARGS__)
-#define Sstar_printk_mgmt(...)		Sstar_printk(SSTAR_PRINTK_MASK_MGMT,__VA_ARGS__)
-#define Sstar_printk_lmac(...)		Sstar_printk(SSTAR_PRINTK_MASK_LMAC,__VA_ARGS__)
-#define Sstar_printk_agg(...)		Sstar_printk(SSTAR_PRINTK_MASK_AGG,__VA_ARGS__)
-#define Sstar_printk_ap(...)			Sstar_printk(SSTAR_PRINTK_MASK_AP,__VA_ARGS__)
-#define Sstar_printk_sta(...)		Sstar_printk(SSTAR_PRINTK_MASK_STA,__VA_ARGS__)
-#define Sstar_printk_smt(...)		Sstar_printk(SSTAR_PRINTK_MASK_SMARTCONFIG,__VA_ARGS__)
-#define Sstar_printk_wext(...)		Sstar_printk(SSTAR_PRINTK_MASK_WEXT,__VA_ARGS__)
-#define Sstar_printk_tx(...)			Sstar_printk(SSTAR_PRINTK_MASK_TX,__VA_ARGS__)
-#define Sstar_printk_rx(...)			Sstar_printk(SSTAR_PRINTK_MASK_RX,__VA_ARGS__)
-#define Sstar_printk_pm(...)			Sstar_printk(SSTAR_PRINTK_MASK_PM,__VA_ARGS__)
-#define Sstar_printk_platform(...)	Sstar_printk(SSTAR_PRINTK_MASK_PLATFROM,__VA_ARGS__)
-#define Sstar_printk_bh(...)			Sstar_printk(SSTAR_PRINTK_MASK_BH,__VA_ARGS__)
-#define Sstar_printk_cfg(...)		Sstar_printk(SSTAR_PRINTK_MASK_CFG80211,__VA_ARGS__)
-#define Sstar_printk_debug(...)		Sstar_printk(SSTAR_PRINTK_MASK_DEBUG,__VA_ARGS__)
+#define Sstar_printk_err(...) 		Sstar_printk_level(KERN_ERR, SSTAR_PRINTK_MASK_ERR, __VA_ARGS__)
+#define Sstar_printk_warn(...)		Sstar_printk_level(KERN_WARNING, SSTAR_PRINTK_MASK_WARN, __VA_ARGS__)
+#define Sstar_printk_init(...)		Sstar_printk_level(KERN_INFO, SSTAR_PRINTK_MASK_DEBUG, __VA_ARGS__)
+#define Sstar_printk_exit(...)		Sstar_printk_level(KERN_INFO, SSTAR_PRINTK_MASK_EXIT, __VA_ARGS__)
+#define Sstar_printk_bus(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_BUS, __VA_ARGS__)
+#define Sstar_printk_scan(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_DEBUG, __VA_ARGS__)
+#define Sstar_printk_p2p(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_P2P, __VA_ARGS__)
+#define Sstar_printk_mgmt(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_MGMT, __VA_ARGS__)
+#define Sstar_printk_lmac(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_LMAC, __VA_ARGS__)
+#define Sstar_printk_agg(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_AGG, __VA_ARGS__)
+#define Sstar_printk_ap(...)			Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_AP, __VA_ARGS__)
+#define Sstar_printk_sta(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_STA, __VA_ARGS__)
+#define Sstar_printk_smt(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_SMARTCONFIG, __VA_ARGS__)
+#define Sstar_printk_wext(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_WEXT, __VA_ARGS__)
+#define Sstar_printk_tx(...)			Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_TX, __VA_ARGS__)
+#define Sstar_printk_rx(...)			Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_RX, __VA_ARGS__)
+#define Sstar_printk_pm(...)			Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_PM, __VA_ARGS__)
+#define Sstar_printk_platform(...)	Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_PLATFROM, __VA_ARGS__)
+#define Sstar_printk_bh(...)			Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_BH, __VA_ARGS__)
+#define Sstar_printk_cfg(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_CFG80211, __VA_ARGS__)
+#define Sstar_printk_debug(...)		Sstar_printk_level(KERN_DEBUG, SSTAR_PRINTK_MASK_DEBUG, __VA_ARGS__)
 #define Sstar_printk_always(fmt,arg...)		printk(KERN_ERR SSTAR_TAG fmt,##arg)
 
 
